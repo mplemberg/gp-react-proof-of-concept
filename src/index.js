@@ -4,11 +4,13 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+const test = window.reactData;
+console.log(test);
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App data={test} />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById(test.documentId)
 );
 
 // If you want your app to work offline and load faster, you can change
