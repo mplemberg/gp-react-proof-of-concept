@@ -34,7 +34,7 @@ const VpdState = props => {
   };
 
   //Set loading
-  const setLoading = (statePropertyName) => dispatch({ type: SET_LOADING, payload: statePropertyName});
+  const setLoading = (statePropertyName) => {dispatch({ type: SET_LOADING, payload: statePropertyName})};
   
   return (
     <VpdContext.Provider

@@ -9,14 +9,18 @@ export default (state, action) => {
       return {
         ...state,
         couplesJourney: {
+          ...state.couplesJourney,
           loading: false,
           data: action.payload,
-          filteredData: []
         }
       };
     case SET_LOADING:
       return {
-        ...state
+        ...state,
+        couplesJourney: {
+          ...state.couplesJourney,
+          loading:true
+        }
       }
   }
 };
