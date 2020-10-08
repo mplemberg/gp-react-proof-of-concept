@@ -1,0 +1,2 @@
+export const SET_LOADING = "SET_LOADING";
+export const LOAD_COUPLES_JOURNEY = "LOAD_COUPLES_JOURNEY";
