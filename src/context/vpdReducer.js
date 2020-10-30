@@ -1,6 +1,8 @@
+
 import {
   SET_LOADING,
-  LOAD_COUPLES_JOURNEY
+  LOAD_COUPLES_JOURNEY,
+  LOAD_FILTERS
 } from "./types";
 
 export default (state, action) => {
@@ -13,7 +15,12 @@ export default (state, action) => {
           loading: false,
           data: action.payload,
         }
-      };
+      }
+    case LOAD_FILTERS:
+      return {
+        ...state,
+        filters: action.payload
+      }
     case SET_LOADING:
       return {
         ...state,

@@ -1,29 +1,46 @@
-import React, { useEffect, useContext } from "react";
-import VpdContext from "../context/vpdContext";
-import CouplesJourneyRow from "./CouplesJourneyRow";
+import React, { useEffect, useContext } from "react"
+import VpdContext from "../context/vpdContext"
+import CouplesJourneyRow from "./CouplesJourneyRow"
+import FilterPanel from "./FilterPanel"
 
 const CouplesJourney = ({ vendorId }) => {
-  const vpdContext = useContext(VpdContext);
+  const vpdContext = useContext(VpdContext)
 
   const {
     loadCouplesJourney,
-    couplesJourney
+    couplesJourney,
+    filters
   } = vpdContext;
 
   useEffect(() => {
     if (vendorId) {
-      loadCouplesJourney(vendorId);
+      loadCouplesJourney(vendorId)
     }
     // eslint-disable-next-line
   }, []);
 
-  
   return (
     <div className="pure-g couplesJourney widget bg-white">
       <div className="pure-u-1">
         <div className="pure-g">
           <div className="pure-u-1">
             <div className="title"> Couples Journey Log </div>
+          </div>
+        </div>
+        <div className="pure-g pt10">
+          <div className="pure-u-1">
+            <div className="pure-g">
+              <div className="pure-u-1">
+                <div className="toggle--label">
+                  Filter By
+                </div> 
+              </div>  
+            </div>
+            <div className="pure-g filtersToolbar">
+              <div className="pure-u-1"> 
+                <FilterPanel filters={filters}/>
+              </div>
+            </div>
           </div>
         </div>
         {
