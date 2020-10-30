@@ -2,7 +2,8 @@
 import {
   SET_LOADING,
   LOAD_COUPLES_JOURNEY,
-  LOAD_FILTERS
+  LOAD_FILTERS,
+  LOAD_SELECTED_FILTERS
 } from "./types";
 
 export default (state, action) => {
@@ -20,6 +21,11 @@ export default (state, action) => {
       return {
         ...state,
         filters: action.payload
+      }
+    case LOAD_SELECTED_FILTERS:
+      return {
+        ...state,
+        selectedFilters: action.payload
       }
     case SET_LOADING:
       return {

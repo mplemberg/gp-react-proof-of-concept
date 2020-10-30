@@ -14,7 +14,7 @@ const FilterPanel = ({ filters }) => {
     <React.Fragment>
       <React.Fragment>
         {filters.groups !== undefined && Object.keys(filters.groups).map((key) => {
-          return <FilterMenu title={FILTER_GROUP_LABELS.get(key)} filters={filters.groups[key]}/>
+          return <FilterMenu title={FILTER_GROUP_LABELS.get(key)} filters={filters.groups[key]} group={key}/>
         })}
       </React.Fragment>
       <React.Fragment>

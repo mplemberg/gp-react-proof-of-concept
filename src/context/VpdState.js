@@ -6,7 +6,8 @@ import * as Constants from './Constants'
 import {
   SET_LOADING,
   LOAD_COUPLES_JOURNEY,
-  LOAD_FILTERS
+  LOAD_FILTERS,
+  LOAD_SELECTED_FILTERS 
 } from "./types";
 
 const VpdState = props => {
@@ -16,7 +17,8 @@ const VpdState = props => {
       data: {entries:[]},
       filteredData: {entries:[]},
     },
-    filters: {}
+    filters: {},
+    selectedFilters: []
   };
 
   const [state, dispatch] = useReducer(VpdReducer, initialState);
@@ -43,7 +45,7 @@ const VpdState = props => {
       groups: {},
       singles: []
     }
-    const allActionsFilter = _buildFilter(Constants.ALL_ACTIONS_FILTER_TYPE, couplesJourney.totalActionCount, null, true)
+    const allActionsFilter = _buildFilter(Constants.ALL_ACTIONS_FILTER_TYPE, couplesJourney.totalActionCount)
 
     filters.singles = [
       allActionsFilter,
@@ -82,7 +84,7 @@ const VpdState = props => {
     });
   }
 
-  const _buildFilter = (filterType, actionCount, iconUrl, isSelected = false) => {
+  const _buildFilter = (filterType, actionCount, iconUrl) => {
     let filter = null
     const label = Constants.FILTER_LABELS.get(filterType)
     if (label) {
@@ -91,7 +93,6 @@ const VpdState = props => {
         type: filterType,
         count: actionCount,
         order: Constants.FILTERS_ORDER.get(filterType),
-        isSelected: isSelected,
         group: _getFilterGroupByActionType(filterType),
         isAllActionsFilter: filterType === Constants.ALL_ACTIONS_FILTER_TYPE
       }
@@ -115,13 +116,44 @@ const VpdState = props => {
   //Set loading
   const setLoading = (statePropertyName) => {dispatch({ type: SET_LOADING, payload: statePropertyName})};
   
+  const isFilterSelected = filter => { 
+    return state.selectedFilters.includes(filter)
+  }
+
+  const isFilterGroupSelected = groupKey => {
+    return state.selectedFilters.some(filter => filter.group === groupKey)
+  }
+
+  const toggleFilter = filter => {
+    let selectedFilters = [...state.selectedFilters] 
+    if(filter.type === Constants.ALL_ACTIONS_FILTER_TYPE && selectedFilters.length > 0) {
+      selectedFilters = []
+    } else if(selectedFilters.includes(filter)){
+      selectedFilters.splice(selectedFilters.indexOf(filter), 1)
+    } else {
+      selectedFilters.push(filter)
+    }
+    _loadSelectedFilters(selectedFilters)
+  }
+
+  const _loadSelectedFilters = (filters) => {
+    dispatch({
+      type: LOAD_SELECTED_FILTERS,
+      payload: filters
+    });
+  }
+
   return (
     <VpdContext.Provider
       value={{
         //make available to all applications
         couplesJourney: state.couplesJourney,
         filters: state.filters,
-        loadCouplesJourney
+        selectedFilters: state.selectedFilters,
+        loadCouplesJourney,
+        toggleFilter,
+        isFilterGroupSelected,
+        isFilterSelected
       }}
     >
       {props.children}

@@ -1,7 +1,19 @@
-import React from "react"
+import React, {useContext} from "react"
+import VpdContext from "../context/vpdContext"
 
 const FilterCheckbox = ({ index, filter }) => {
-  const elementId = `app-couples-journey-filter-checkbox-${index}`
+  const vpdContext = useContext(VpdContext)
+  const {
+    isFilterSelected,
+    toggleFilter
+  } = vpdContext;
+
+  const elementId = `${filter.group}-${index}`
+  const isChecked = isFilterSelected(filter)
+  const handleClick = () => {
+    toggleFilter(filter)
+  }
+  
   return (
     <label htmlFor={elementId} className="checkbox-container">
       {filter.label} ({filter.count}) 
@@ -10,6 +22,8 @@ const FilterCheckbox = ({ index, filter }) => {
         id={elementId}
         data-event-type={filter.type}
         data-event-category="Couples Journey Filter"
+        onChange={handleClick}
+        checked={isChecked}
       />
       <span className="checkbox"></span>
     </label>
