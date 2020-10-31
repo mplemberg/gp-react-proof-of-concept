@@ -11,18 +11,31 @@ const FilterPanel = ({ filters }) => {
   ])
 
   return (
-    <React.Fragment>
-      <React.Fragment>
-        {filters.groups !== undefined && Object.keys(filters.groups).map((key) => {
-          return <FilterMenu title={FILTER_GROUP_LABELS.get(key)} filters={filters.groups[key]} group={key}/>
-        })}
-      </React.Fragment>
-      <React.Fragment>
-        {filters.singles !== undefined && filters.singles.map((filter, index) => {
-          return <FilterButton filter={filter}/>
-        })}
-      </React.Fragment>
-    </React.Fragment>
+    <div className="pure-g pt10">
+      <div className="pure-u-1">
+        <div className="pure-g">
+          <div className="pure-u-1">
+            <div className="toggle--label">
+              Filter By
+            </div> 
+          </div>  
+        </div>
+        <div className="pure-g filtersToolbar">
+          <div className="pure-u-1"> 
+            <React.Fragment>
+              {filters.groups !== undefined && Object.keys(filters.groups).map((key) => {
+                return <FilterMenu title={FILTER_GROUP_LABELS.get(key)} filters={filters.groups[key]} group={key}/>
+              })}
+            </React.Fragment>
+            <React.Fragment>
+              {filters.singles !== undefined && filters.singles.map((filter, index) => {
+                return <FilterButton filter={filter}/>
+              })}
+            </React.Fragment>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 

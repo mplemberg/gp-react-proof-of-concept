@@ -8,7 +8,8 @@ import {
   LOAD_COUPLES_JOURNEY,
   LOAD_FILTERS,
   LOAD_SELECTED_FILTERS,
-  FILTER_COUPLES_JOURNEY
+  FILTER_COUPLES_JOURNEY,
+  LOAD_DESCRIPTION
 } from "./types";
 
 const VpdState = props => {
@@ -21,7 +22,8 @@ const VpdState = props => {
       entries: []
     },
     filters: {},
-    selectedFilters: []
+    selectedFilters: [],
+    description: ''
   };
 
   const [state, dispatch] = useReducer(VpdReducer, initialState);
@@ -138,6 +140,7 @@ const VpdState = props => {
     }
     _loadSelectedFilters(selectedFilters)
     _filterCouplesJourney(selectedFilters)
+    _loadFilterDescription(selectedFilters)
   }
 
   const _loadSelectedFilters = (filters) => {
@@ -216,6 +219,35 @@ const VpdState = props => {
     return shouldShow
   }
 
+  const _loadFilterDescription = (selectedFilters) => {
+    const description = _buildFilterDescription(selectedFilters)
+    dispatch({
+      type: LOAD_DESCRIPTION,
+      payload: description
+    });
+  }
+
+  const _buildFilterDescription = (selectedFilters) => {
+    let phrase= ''
+    let punctuation= ''
+    let currentFilterGroup  = ''
+    let priorFilterGroup = ''
+    let sortedFilters = selectedFilters.sort((a, b) => a.order > b.order ? 1 : -1)
+
+    sortedFilters.filter(filter => filter.type !== 'ALL_ACTIONS').forEach(filter => {
+      currentFilterGroup = _getFilterGroupByActionType(filter.type)
+      if (phrase !== '' && currentFilterGroup && priorFilterGroup === currentFilterGroup) {
+        punctuation = ', '
+      } else if (phrase !== '') {
+        punctuation = "' + '"
+      }
+      phrase += punctuation + filter.label
+      priorFilterGroup = currentFilterGroup
+    })
+
+    if (phrase.length > 0) phrase = `'${phrase}'`
+    return phrase
+  }
 
   return (
     <VpdContext.Provider
@@ -224,6 +256,7 @@ const VpdState = props => {
         couplesJourney: state.couplesJourney,
         filters: state.filters,
         selectedFilters: state.selectedFilters,
+        description: state.description,
         loadCouplesJourney,
         toggleFilter,
         isFilterGroupSelected,
