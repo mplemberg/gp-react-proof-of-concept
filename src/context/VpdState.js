@@ -131,7 +131,7 @@ const VpdState = props => {
 
   const toggleFilter = filter => {
     let selectedFilters = [...state.selectedFilters] 
-    if(filter.type === Constants.ALL_ACTIONS_FILTER_TYPE && selectedFilters.length > 0) {
+    if(filter.type === Constants.ALL_ACTIONS_FILTER_TYPE) {
       selectedFilters = []
     } else if(selectedFilters.includes(filter)){
       selectedFilters.splice(selectedFilters.indexOf(filter), 1)
