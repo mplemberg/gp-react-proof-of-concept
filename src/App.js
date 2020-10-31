@@ -1,12 +1,12 @@
 import React from "react"
-import VpdState from "./couplesJourney/context/VpdState";
+import CouplesJourneyState from "./couplesJourney/context/CouplesJourneyState";
 import CouplesJourney from "./couplesJourney/components/CouplesJourney";
 
 const App = ({data}) => {
   return (
-    <VpdState>
+    <CouplesJourneyState>
           <CouplesJourney vendorId={data.vendorId} />  
-    </VpdState>
+    </CouplesJourneyState>
   );
 };
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default class VpdApiClient {
+export default class ApiClient {
   constructor(serverUrl) {
     this.baseUrl = 'vendor-performance-data';
   }

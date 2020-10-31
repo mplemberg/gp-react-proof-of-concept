@@ -1,12 +1,12 @@
 import React, {useContext} from "react"
-import VpdContext from "../context/vpdContext"
+import CouplesJourneyContext from "../context/CouplesJourneyContext"
 
 const FilterCheckbox = ({ index, filter }) => {
-  const vpdContext = useContext(VpdContext)
+  const couplesJourneyContext = useContext(CouplesJourneyContext)
   const {
     isFilterSelected,
     toggleFilter
-  } = vpdContext;
+  } = couplesJourneyContext;
 
   const elementId = `${filter.group}-${index}`
   const isChecked = isFilterSelected(filter)

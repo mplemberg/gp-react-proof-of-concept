@@ -1,5 +1,5 @@
 import React from "react"
-import VpdContext from "../context/vpdContext"
+import CouplesJourneyContext from "../context/CouplesJourneyContext"
 import FilterMenu from "./FilterMenu"
 import FilterButton from "./FilterButton"
 

@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
-import VpdContext from "./vpdContext";
-import VpdReducer from "./vpdReducer";
-import VpdApiClient from "./VpdApiClient";
+import CouplesJourneyContext from "./CouplesJourneyContext";
+import Reducer from "./Reducer";
+import ApiClient from "./ApiClient";
 import * as Constants from './Constants'
 import {
   SET_LOADING,
@@ -10,9 +10,9 @@ import {
   LOAD_SELECTED_FILTERS,
   FILTER_COUPLES_JOURNEY,
   LOAD_DESCRIPTION
-} from "./types";
+} from "./Types";
 
-const VpdState = props => {
+const CouplesJourneyState = props => {
   const initialState = {
     couplesJourney: {
       loading: false,
@@ -26,9 +26,9 @@ const VpdState = props => {
     description: ''
   };
 
-  const [state, dispatch] = useReducer(VpdReducer, initialState);
+  const [state, dispatch] = useReducer(Reducer, initialState);
 
-  const apiClient = new VpdApiClient("");
+  const apiClient = new ApiClient("");
 
   const loadCouplesJourney = async (vendorId) => {
     setLoading('couplesJourney');
@@ -250,7 +250,7 @@ const VpdState = props => {
   }
 
   return (
-    <VpdContext.Provider
+    <CouplesJourneyContext.Provider
       value={{
         //expose to all applications
         couplesJourney: state.couplesJourney,
@@ -264,8 +264,8 @@ const VpdState = props => {
       }}
     >
       {props.children}
-    </VpdContext.Provider>
+    </CouplesJourneyContext.Provider>
   )
 }
 
-export default VpdState;
+export default CouplesJourneyState;

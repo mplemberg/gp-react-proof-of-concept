@@ -1,11 +1,11 @@
 import React, { useEffect, useContext } from "react"
-import VpdContext from "../context/vpdContext"
-import CouplesJourneyRow from "./CouplesJourneyRow"
+import CouplesJourneyContext from "../context/CouplesJourneyContext"
+import Entry from "./Entry"
 import FilterPanel from "./FilterPanel"
 import Summary from "./Summary"
 
 const CouplesJourney = ({ vendorId }) => {
-  const vpdContext = useContext(VpdContext)
+  const couplesJourneyContext = useContext(CouplesJourneyContext)
 
   const {
     loadCouplesJourney,
@@ -13,7 +13,7 @@ const CouplesJourney = ({ vendorId }) => {
     selectedFilters,
     filters,
     description
-  } = vpdContext;
+  } = couplesJourneyContext;
 
   useEffect(() => {
     if (vendorId) {
@@ -46,7 +46,7 @@ const CouplesJourney = ({ vendorId }) => {
                 {
                   couplesJourney.entries && couplesJourney.entries.map((entry, index) => {
                       return (
-                        <CouplesJourneyRow
+                        <Entry
                           entry={entry}
                           isStriped={(index % 2) == 1}
                           checkmarkAssetUrl={couplesJourney.data.checkmarkAssetUrl}

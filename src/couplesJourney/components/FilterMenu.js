@@ -1,13 +1,13 @@
 import React, {useContext} from "react"
-import VpdContext from "../context/vpdContext"
+import CouplesJourneyContext from "../context/CouplesJourneyContext"
 import FilterCheckbox from "./FilterCheckbox"
 
 
 const FilterMenu = ({ group, title, filters}) => {
-  const vpdContext = useContext(VpdContext)
+  const couplesJourneyContext = useContext(CouplesJourneyContext)
   const {
     isFilterGroupSelected
-  } = vpdContext;
+  } = couplesJourneyContext;
 
   const isSelected = isFilterGroupSelected(group)
   return (

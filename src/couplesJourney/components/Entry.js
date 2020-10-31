@@ -1,6 +1,6 @@
 import React from "react";
 
-const CouplesJourneyRow = ({entry, isStriped, checkmarkAssetUrl, heartAssetUrl}) => {
+const Entry = ({entry, isStriped, checkmarkAssetUrl, heartAssetUrl}) => {
   const entryclasses = isStriped ? 'log-entry--striped' : ''
 
   const buildSubRow = (value) => {
@@ -49,4 +49,4 @@ const CouplesJourneyRow = ({entry, isStriped, checkmarkAssetUrl, heartAssetUrl})
   );
 };
 
-export default CouplesJourneyRow;
+export default Entry;

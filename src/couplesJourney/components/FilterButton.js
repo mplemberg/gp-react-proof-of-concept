@@ -1,12 +1,12 @@
 import React, {useContext} from "react"
-import VpdContext from "../context/vpdContext"
+import CouplesJourneyContext from "../context/CouplesJourneyContext"
 
 const FilterButton = ({ filter }) => {
-  const vpdContext = useContext(VpdContext)
+  const couplesJourneyContext = useContext(CouplesJourneyContext)
   const {
     isFilterSelected,
     toggleFilter
-  } = vpdContext;
+  } = couplesJourneyContext;
 
   const isSelected = isFilterSelected(filter)
   const handleClick = () => {
