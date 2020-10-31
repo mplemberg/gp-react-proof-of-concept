@@ -3,7 +3,8 @@ import {
   SET_LOADING,
   LOAD_COUPLES_JOURNEY,
   LOAD_FILTERS,
-  LOAD_SELECTED_FILTERS
+  LOAD_SELECTED_FILTERS,
+  FILTER_COUPLES_JOURNEY
 } from "./types";
 
 export default (state, action) => {
@@ -15,6 +16,7 @@ export default (state, action) => {
           ...state.couplesJourney,
           loading: false,
           data: action.payload,
+          entries: action.payload.entries
         }
       }
     case LOAD_FILTERS:
@@ -33,6 +35,14 @@ export default (state, action) => {
         couplesJourney: {
           ...state.couplesJourney,
           loading:true
+        }
+      }
+    case FILTER_COUPLES_JOURNEY:
+      return {
+        ...state,
+        couplesJourney: {
+          ...state.couplesJourney,
+          entries: action.payload,
         }
       }
   }

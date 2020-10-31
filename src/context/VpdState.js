@@ -7,15 +7,18 @@ import {
   SET_LOADING,
   LOAD_COUPLES_JOURNEY,
   LOAD_FILTERS,
-  LOAD_SELECTED_FILTERS 
+  LOAD_SELECTED_FILTERS,
+  FILTER_COUPLES_JOURNEY
 } from "./types";
 
 const VpdState = props => {
   const initialState = {
     couplesJourney: {
       loading: false,
-      data: {entries:[]},
-      filteredData: {entries:[]},
+      data: {
+        entries:[]
+      },
+      entries: []
     },
     filters: {},
     selectedFilters: []
@@ -134,6 +137,7 @@ const VpdState = props => {
       selectedFilters.push(filter)
     }
     _loadSelectedFilters(selectedFilters)
+    _filterCouplesJourney(selectedFilters)
   }
 
   const _loadSelectedFilters = (filters) => {
@@ -143,10 +147,80 @@ const VpdState = props => {
     });
   }
 
+  const _filterCouplesJourney = (selectedFilters) => {
+    const filteredEntries = selectedFilters.length > 0 ? state.couplesJourney.data.entries.filter(entry => _doesSatisfyFilters(selectedFilters, entry)) : state.couplesJourney.data.entries
+    dispatch({
+      type: FILTER_COUPLES_JOURNEY,
+      payload: filteredEntries
+    });
+  }
+
+  const _doesSatisfyFilters = (selectedFilters, {actionTypes, weddingYear, isBooking}) => {
+    const selectedPreFilters = selectedFilters.filter(value => Constants.PRE_ACTION_TYPES.includes(value.type))
+    const selectedPostFilters = selectedFilters.filter(value => Constants.POST_ACTION_TYPES.includes(value.type))
+    const selectedWeddingYearFilters = selectedFilters.filter(value => Constants.WEDDING_YEAR_TYPES.includes(value.type))
+    let numFiltersSatisfied = 0
+
+    let shouldShowPre = false
+    let shouldShowPost = false
+    let shouldShowWeddingYear = false
+
+    // Should show based on pre filters
+    if ((selectedPreFilters.filter(value => actionTypes.includes(value.type))).length > 0) {
+      shouldShowPre = true
+    }
+
+    // Should show based on post filters
+    if ((selectedPostFilters.filter(value => actionTypes.includes(value.type))).length > 0) {
+      shouldShowPost = true
+    }
+
+    // Should show based on wedding-year filters
+    if ((selectedWeddingYearFilters.filter(value => value.type === weddingYear)).length > 0) {
+      shouldShowWeddingYear = true
+    }
+
+    const remainingFilters = selectedFilters.filter(value => !( (Constants.PRE_ACTION_TYPES.concat(Constants.POST_ACTION_TYPES.concat(Constants.WEDDING_YEAR_TYPES))).includes(value.type)) )
+
+    remainingFilters.forEach(filter => {
+      if (
+        filter.type === Constants.ALL_ACTIONS_FILTER_TYPE ||
+        actionTypes.includes(filter.type) ||
+        (filter.type === Constants.BOOKINGS_FILTER_TYPE && isBooking) ||
+        (filter.type === Constants.REVIEW_ACTION_TYPE && actionTypes.includes(Constants.EXPLICIT_REVIEW_ACTION_TYPE))
+      ) {
+        numFiltersSatisfied++
+      }
+    })
+
+    let shouldShow = false
+
+    if (numFiltersSatisfied === remainingFilters.length) {
+      if (selectedPreFilters.length > 0) {
+        if (selectedPostFilters.length > 0) {
+          shouldShow = shouldShowPre && shouldShowPost
+        } else {
+          shouldShow = shouldShowPre
+        }
+      } else if (selectedPostFilters.length > 0) {
+        shouldShow = shouldShowPost
+      } else {
+        shouldShow = true
+      }
+
+      if (selectedWeddingYearFilters.length > 0) {
+        shouldShow = shouldShow && shouldShowWeddingYear
+      }
+    }
+
+    return shouldShow
+  }
+
+
   return (
     <VpdContext.Provider
       value={{
-        //make available to all applications
+        //expose to all applications
         couplesJourney: state.couplesJourney,
         filters: state.filters,
         selectedFilters: state.selectedFilters,

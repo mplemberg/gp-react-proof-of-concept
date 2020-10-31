@@ -9,6 +9,7 @@ const CouplesJourney = ({ vendorId }) => {
   const {
     loadCouplesJourney,
     couplesJourney,
+    selectedFilters,
     filters
   } = vpdContext;
 
@@ -54,7 +55,7 @@ const CouplesJourney = ({ vendorId }) => {
                 <div className="pure-u-2-12"> Attribution </div>
               </div>
               {
-                couplesJourney.data && couplesJourney.data.entries && couplesJourney.data.entries.map((entry, index) => {
+                couplesJourney.entries && couplesJourney.entries.map((entry, index) => {
                     return (
                       <CouplesJourneyRow
                         entry={entry}
