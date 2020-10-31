@@ -1,6 +1,6 @@
 import React from "react"
-import VpdState from "./context/VpdState";
-import CouplesJourney from "./components/CouplesJourney";
+import VpdState from "./couplesJourney/context/VpdState";
+import CouplesJourney from "./couplesJourney/components/CouplesJourney";
 
 const App = ({data}) => {
   return (
