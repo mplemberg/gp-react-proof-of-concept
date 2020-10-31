@@ -1,4 +1,3 @@
-
 import {
   SET_LOADING,
   LOAD_COUPLES_JOURNEY,

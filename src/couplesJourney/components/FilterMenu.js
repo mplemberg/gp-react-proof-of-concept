@@ -2,7 +2,6 @@ import React, {useContext} from "react"
 import CouplesJourneyContext from "../context/CouplesJourneyContext"
 import FilterCheckbox from "./FilterCheckbox"
 
-
 const FilterMenu = ({ group, title, filters}) => {
   const couplesJourneyContext = useContext(CouplesJourneyContext)
   const {

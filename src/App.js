@@ -5,7 +5,7 @@ import CouplesJourney from "./couplesJourney/components/CouplesJourney";
 const App = ({data}) => {
   return (
     <CouplesJourneyState>
-          <CouplesJourney vendorId={data.vendorId} />  
+      <CouplesJourney vendorId={data.vendorId} />  
     </CouplesJourneyState>
   );
 };

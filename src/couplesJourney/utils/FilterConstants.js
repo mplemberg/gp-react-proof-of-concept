@@ -71,9 +71,3 @@ export const FILTER_GROUPS = new Map([
   ['POST_ACTION_TYPES', POST_ACTION_TYPES],
   ['WEDDING_YEAR_TYPES', WEDDING_YEAR_TYPES,]
 ])
-
-export const FILTER_GROUP_LABELS = new Map([
-  ['PRE_ACTION_TYPES', 'Pre-Actions'],
-  ['POST_ACTION_TYPES', 'Booking Actions'],
-  ['WEDDING_YEAR_TYPES', 'Wedding Date']
-])
