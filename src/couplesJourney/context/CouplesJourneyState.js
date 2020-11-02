@@ -25,6 +25,7 @@ const CouplesJourneyState = props => {
     selectedFilters: [],
     description: ''
   };
+  let test = 'test'
 
   const [state, dispatch] = useReducer(Reducer, initialState);
   const apiClient = new ApiClient("");
@@ -58,7 +59,7 @@ const CouplesJourneyState = props => {
       payload: description
     });
   }
-  
+
   const loadCouplesJourney = async (vendorId) => {
     setLoading('couplesJourney');
     try {
