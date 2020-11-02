@@ -5,7 +5,7 @@ import {
   LOAD_SELECTED_FILTERS,
   FILTER_COUPLES_JOURNEY,
   LOAD_DESCRIPTION
-} from "./Test/Types";
+} from "./Types";
 
 export default (state, action) => {
   switch (action.type) {

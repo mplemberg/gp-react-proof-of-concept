@@ -10,7 +10,7 @@ import {
   LOAD_SELECTED_FILTERS,
   FILTER_COUPLES_JOURNEY,
   LOAD_DESCRIPTION
-} from "./Test/Types";
+} from "./Types";
 
 const CouplesJourneyState = props => {
   const initialState = {
